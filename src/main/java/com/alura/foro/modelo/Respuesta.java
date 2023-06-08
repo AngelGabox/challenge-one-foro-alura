@@ -1,14 +1,42 @@
-package com.alura.modelo;
+package com.alura.foro.modelo;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+
+
+@Entity(name = "Respuesta")
+@Table(name = "respuestas")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Respuesta {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank
 	private String mensaje;
+	
+	@NotNull
+	@ManyToOne
 	private Topico topico;
+	
+	@NotNull
+	@CreatedDate
 	private LocalDateTime fechaCreacion = LocalDateTime.now();
+	
+	@NotNull
+	@ManyToOne
 	private Usuario autor;
+	
+	@NotNull
 	private Boolean solucion = false;
 
 	@Override
